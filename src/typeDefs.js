@@ -1,32 +1,48 @@
-// typeDefs
+const typeDefs = `#graphql
+    scalar DateTime
+    
+    type Query{
+        greet: String
+        users: [User]
+        user(id: ID): User
+    }
+    
+    type Mutation{
+        signUp(userNew: register!): User
+        signIn(userLog: login!): Token
+        createMessage(penerimaId: String!, text: String): Message
+    }
 
-export const typeDefs = `#graphql
-  type Query {
-    greet: String
-    users: [User]
-    user(id: ID): User
-  }
+    input login{
+        email: String!
+        password: String!
+    }
 
-  input UserInput {
-    name: String!
-    email: String!
-    password: String!
-  }
+    input register{
+        name: String!
+        email: String!
+        password: String!
+    }
 
-  type Mutation {
-    createUser(userNew: UserInput!): User
-  }
+    type User{
+        id: ID!
+        name: String!
+        email: String!
+        password: String!
+        createAt: DateTime!
+    }
 
-  type User {
-    id: ID
-    name: String
-    email: String
-    password: String
-    todos: [Todo]
-  }
+    type Message {
+        id:ID!
+        text: String!
+        penerimaId: String!
+        pengirimId: String!
+        createAt: DateTime!
+    }
 
-  type Todo {
-    by: ID
-    title: String
-  }
+    type Token {
+         token: String!
+    }
 `;
+
+export default typeDefs;
