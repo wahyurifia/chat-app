@@ -18,7 +18,7 @@ model User {
   name          String
   email         String    @unique
   password      String
-  createAt      DateTime  @default(now())
+  createdAt      DateTime  @default(now())
   pesanMasuk    Message[] @relation(name: "penerima")
   pesanTerkirim Message[] @relation(name: "pengirim")
 }
@@ -30,5 +30,5 @@ model Message {
   penerima   User     @relation(name: "penerima", fields: [penerimaId], references: [id])
   pengirimId String
   pengirim   User     @relation(name: "pengirim", fields: [pengirimId], references: [id])
-  creteAt    DateTime @default(now())
+  createdAt    DateTime @default(now())
 }

@@ -4,7 +4,7 @@ const typeDefs = `#graphql
     type Query{
         greet: String
         users: [User]
-        user(id: ID): User
+        messageByUser(penerimaId: String!): [Message]
     }
     
     type Mutation{
@@ -29,7 +29,7 @@ const typeDefs = `#graphql
         name: String!
         email: String!
         password: String!
-        createAt: DateTime!
+        createdAt: DateTime!
     }
 
     type Message {
@@ -37,7 +37,7 @@ const typeDefs = `#graphql
         text: String!
         penerimaId: String!
         pengirimId: String!
-        createAt: DateTime!
+        createdAt: DateTime!
     }
 
     type Token {

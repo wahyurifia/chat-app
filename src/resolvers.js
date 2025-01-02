@@ -14,7 +14,7 @@ const resolvers = {
       if (!userId) throw new AuthenticationError("you must be logged in!");
       return await prisma.user.findMany({
         orderBy: {
-          createAt: "desc",
+          createdAt: "desc",
         },
         where: {
           id: {
@@ -23,13 +23,24 @@ const resolvers = {
         },
       });
     },
-    user: async (_, { id }) => {
-      const user = await prisma.user.findFirst({ where: { id } });
-      if (!user) throw new AuthenticationError("user not found!");
+    messageByUser: async (_, { penerimaId }, { userId }) => {
+      if (!userId) throw new AuthenticationError("you must be logged in!");
 
-      return user;
+      const message = await prisma.message.findMany({
+        where: {
+          OR: [
+            { pengirimId: userId, penerimaId: penerimaId },
+            { pengirimId: penerimaId, penerimaId: userId },
+          ],
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+      return message;
     },
   },
+
   Mutation: {
     signUp: async (_, { userNew }) => {
       const user = await prisma.user.findUnique({
